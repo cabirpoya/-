@@ -32,7 +32,13 @@ export default function AIChatAssistant() {
     setIsLoading(true);
 
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const apiKey = process.env.GEMINI_API_KEY;
+      if (!apiKey) {
+        setMessages(prev => [...prev, { role: "model", text: "کلید API هوش مصنوعی تنظیم نشده است. لطفاً آن را در تنظیمات محیطی وارد کنید." }]);
+        setIsLoading(false);
+        return;
+      }
+      const ai = new GoogleGenAI({ apiKey });
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: messages.concat({ role: "user", text: userMessage }).map(m => ({

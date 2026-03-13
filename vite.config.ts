@@ -37,7 +37,8 @@ export default defineConfig(({ mode }) => {
       // Generate manifest.json with build assets
       manifest: true,
       // CSS code splitting (extracts CSS to separate files instead of inline)
-      cssCodeSplit: true,
+      // Set to false to avoid dynamic injection issues with constructed stylesheets and @import
+      cssCodeSplit: false,
       // Note: CSS minification and autoprefixing are handled automatically by Vite
       // and Tailwind CSS v4 (which uses Lightning CSS under the hood).
       // Target modern browsers (ESM by default for apps)
